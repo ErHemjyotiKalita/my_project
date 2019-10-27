@@ -5,12 +5,12 @@ const checkAuth = require('../middleware/check-auth');
 
 const OrderController = require('../controller/orders');
 
-router.get('/', checkAuth, OrderController.orders_get_all);
+router.get('/', OrderController.orders_get_all);
 
-router.post('/', checkAuth, OrderController.orders_create_order);
+router.post('/', OrderController.orders_create_order);
 
-router.get('/:orderId', checkAuth, OrderController.orders_get_order);
+router.get('/:orderId', OrderController.orders_get_order);
 
-router.delete('/:orderId', checkAuth, OrderController.orders_delete_order);
+router.delete('/:orderId', OrderController.orders_delete_order);
 
 module.exports = router;

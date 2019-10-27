@@ -1,0 +1,173 @@
+{
+  "swagger": "2.0",
+  "title": "Order management App",
+  "description": "REST API for order management system",
+  "license": {
+    "name": "MIT",
+    "url": "http://opensource.org/licenses/MIT"
+  },
+  "version": "3.0.1",
+  "host": "localhost:3501",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Orders API",
+      "description": "API for Order Management system"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "appliccation/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/orders": {
+      "post": {
+        "tags": [
+          "Post method for Orders"
+        ],
+        "description": "create new order in system",
+        "parameters": [
+          {
+            "name": "Orders",
+            "descriptions": "orders that create new order",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#definitions/Orders"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "new order is created",
+            "schema": {
+              "$ref": "#definitions/Orders"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Get method for Orders"
+        ],
+        "summary":"Find all orders",
+        "description": "create new order in system",
+        "responses":{
+          "200":{
+            "description":"Ok",
+            "schema":{
+              "$ref": "#definitions/Order"
+            }
+          }
+        }
+      }
+    },
+    "/orders/{id}":{
+      "parameters":[
+        {
+          "name":"id",
+          "in":"path",
+          "description":"Find order by id",
+          "type":"string"
+        }
+      ],
+      "get":{
+        "tags":[
+          "Get order by Id"
+        ],
+        "description":"find orders by id",
+        "responses":{
+          "200":{
+            "description":"order is found",
+            "schema":{
+              "$ref": "#definitions/Orders"
+            }
+          }
+        }
+      },
+      "delete":{
+        "tags":[
+          "Delete by Id"
+        ],
+        "description":"Delete orders by id",
+        "responses":{
+          "200":{
+            "description":"order deleted",
+            "schema":{
+              "$ref": "#definitions/Orders"
+            }
+          }
+        }
+      },
+      "put":{
+        "tags": [
+          "Update an Orders"
+        ],
+        "description": "Update an order in system",
+        "parameters": [
+          {
+            "name": "Update an Orders",
+            "descriptions": "Update in any order",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#definitions/UpdateOrders"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Order is updated",
+            "schema": {
+              "$ref": "#definitions/Orders"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Orders": {
+      "required": [
+        "product,quantity"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "product": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "integer"
+        }
+      }
+    },
+    "UpdateOrders": {
+      "properties": {
+        "product": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "integer"
+        }
+      }
+    },
+"Order":{
+    "type":"array",
+    "$ref":"#definitions/Orders"
+    }
+  }
+}
