@@ -95,7 +95,7 @@
       },
       "delete":{
         "tags":[
-          "Delete by Id"
+          "Delete by order Id"
         ],
         "description":"Delete orders by id",
         "responses":{
@@ -135,8 +135,106 @@
           }
         }
       }
+    },
+    "/products" :{
+      "post": {
+        "tags": [
+          "Post method for products"
+        ],
+        "description": "create new products in system",
+        "parameters": [
+          {
+            "name": "Products",
+            "descriptions": "create new products",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#definitions/products"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "new product is created",
+            "schema": {
+              "$ref": "#definitions/products"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Get method for Products"
+        ],
+        "summary":"Find all Products",
+        "description": "Find product in system",
+        "responses":{
+          "200":{
+            "description":"Ok",
+            "schema":{
+              "$ref": "#definitions/products"
+            }
+          }
+        }
+      }
+  },
+  "/products/{id}":{
+    "parameters":[
+      {
+        "name":"id",
+        "in":"path",
+        "description":"Find products by id",
+        "type":"string"
+      }
+    ],
+  "delete":{
+    "tags":[
+      "Delete by product by Id"
+    ],
+    "description":"Delete product by id",
+    "responses":{
+      "200":{
+        "description":"product deleted",
+        "schema":{
+          "$ref": "#definitions/products"
+        }
+      }
     }
   },
+  "patch":{
+    "tags": [
+      "Update a product"
+    ],
+    "description": "Update product in system",
+    "parameters": [
+      {
+        "name": "Update an product",
+        "descriptions": "Update in any product",
+        "in": "body",
+        "required": true,
+        "schema": {
+          "$ref": "#definitions/Updateproducts"
+        }
+      }
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "responses": {
+      "200": {
+        "description": "products is updated",
+        "schema": {
+          "$ref": "#definitions/products"
+        }
+      }
+    }
+  }
+}
+},
+
   "definitions": {
     "Orders": {
       "required": [
@@ -155,6 +253,23 @@
         }
       }
     },
+    "products":{
+      "required":[
+        "name,price"
+      ],
+      "properties":{
+        "id":{
+          "type":"string",
+          "uniqueItems":true
+        },
+        "name":{
+          "type":"string"
+        },
+        "price":{
+          "type":"integer"
+        }
+      }
+    },
     "UpdateOrders": {
       "properties": {
         "product": {
@@ -165,9 +280,24 @@
         }
       }
     },
+    "Updateproducts":{
+      "properties":{
+        "name":{
+          "type":"string"
+        },
+        "price":{
+          "type":"integer"
+        }
+      }
+    },
 "Order":{
     "type":"array",
     "$ref":"#definitions/Orders"
     }
+  },
+  "product":{
+    "type":"array",
+    "$ref":"#definitions/products"
   }
 }
+

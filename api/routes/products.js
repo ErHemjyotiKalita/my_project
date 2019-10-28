@@ -34,12 +34,12 @@ const upload =multer({
 
 router.get('/', ProductController.product_get_all);
 
-router.post('/',checkAuth, upload.single('productImage'), ProductController.products_create_product);
+router.post('/', ProductController.products_create_product);
 
 router.get('/:productId',ProductController.product_get_product);
 
 
-router.patch('/:productId',checkAuth, ProductController.product_update_product);
+router.patch('/:productId',ProductController.product_update_product);
 
-router.delete('/:productId',checkAuth, ProductController.products_delete);
+router.delete('/:productId',ProductController.products_delete);
 module.exports = router;
